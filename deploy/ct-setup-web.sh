@@ -5,7 +5,6 @@ export DEBIAN_FRONTEND=noninteractive
 # pct exec jalan tanpa HOME/PATH lengkap; composer butuh HOME.
 export HOME=/root COMPOSER_HOME=/root/.composer COMPOSER_ALLOW_SUPERUSER=1
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 export LC_ALL=C.UTF-8 LANG=C.UTF-8
 APP_DIR=/var/www/pkbm
 APP_URL="${APP_URL:?}"
