@@ -27,6 +27,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->profile(isSimple: false)
             ->brandName('PKBM Widya Utama')
             ->favicon(asset('favicon.ico'))
             ->colors([
