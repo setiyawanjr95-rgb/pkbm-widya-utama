@@ -13,3 +13,6 @@ cp "$TMP/pubspec.yaml" "$APP/pubspec.yaml"
 cp "$TMP/android/app/src/main/AndroidManifest.xml" "$APP/android/app/src/main/AndroidManifest.xml"
 rm -rf "$TMP"
 /usr/local/bin/build-pkbm
+# Link publik (Cloudflare) memakai nama tetap, arahkan ke build terbaru
+ln -sf "$(readlink /opt/pkbm/dist/pkbm-widya-utama-terbaru.apk)" /opt/pkbm/dist/pkbm-widya-utama.apk
+echo "Link publik: https://apk-pkbm.netwarga.my.id/pkbm-widya-utama.apk"
