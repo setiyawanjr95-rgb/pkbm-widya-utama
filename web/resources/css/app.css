@@ -1,9 +1,91 @@
 @import 'tailwindcss';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
+@source '../views/**/*.blade.php';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+
+    /* Warna sama dengan app Android PKBM */
+    --color-brand-50: #f0f4ff;
+    --color-brand-100: #e8eeff;
+    --color-brand-200: #c9d6ff;
+    --color-brand-300: #9db4fb;
+    --color-brand-500: #2f5fe0;
+    --color-brand-600: #1546d1;
+    --color-brand-700: #0f39b3;
+    --color-brand-800: #0b2e9e;
+    --color-brand-900: #0a2172;
+    --color-gold-400: #f5c560;
+    --color-gold-500: #f2b33d;
+    --color-ink: #1b2337;
+    --color-muted: #5f6b85;
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+    body {
+        @apply bg-white text-ink antialiased;
+    }
+}
+
+@utility container-site {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6;
+}
+@utility btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-200;
+}
+@utility btn-primary {
+    @apply btn bg-brand-600 text-white shadow-lg shadow-brand-600/25 hover:bg-brand-700;
+}
+@utility btn-gold {
+    @apply btn bg-gold-500 text-ink hover:bg-gold-400;
+}
+@utility btn-ghost {
+    @apply btn border border-brand-200 bg-white text-brand-700 hover:border-brand-300 hover:bg-brand-50;
+}
+@utility btn-light {
+    @apply btn border border-white/30 bg-white/10 text-white backdrop-blur hover:bg-white/20;
+}
+@utility eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full bg-brand-100 px-3 py-1 text-xs font-bold tracking-wide text-brand-700 uppercase;
+}
+@utility section-title {
+    @apply mt-3 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl;
+}
+@utility card {
+    @apply rounded-3xl border border-slate-100 bg-white shadow-sm;
+}
+@utility field-label {
+    @apply mb-1.5 block text-sm font-semibold text-ink;
+}
+@utility field {
+    @apply block w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition placeholder:text-slate-400 focus:border-brand-500 focus:ring-4 focus:ring-brand-100;
+}
+@utility prose-site {
+    @apply space-y-4 leading-relaxed text-slate-700;
+
+    & h2 {
+        @apply mt-8 text-2xl font-bold text-ink;
+    }
+    & h3 {
+        @apply mt-6 text-xl font-bold text-ink;
+    }
+    & a {
+        @apply font-semibold text-brand-600 underline;
+    }
+    & ul {
+        @apply list-disc space-y-1 pl-6;
+    }
+    & ol {
+        @apply list-decimal space-y-1 pl-6;
+    }
+    & img {
+        @apply rounded-2xl;
+    }
+    & blockquote {
+        @apply border-l-4 border-brand-300 pl-4 italic;
+    }
 }

@@ -15,6 +15,7 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use UnitEnum;
 
 /** Akun admin & tutor yang bisa masuk ke panel ini. Hanya admin yang bisa mengelola. */
 class UserResource extends Resource
@@ -22,6 +23,8 @@ class UserResource extends Resource
     protected static ?string $model = User::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedShieldCheck;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Pengaturan';
 
     protected static ?string $modelLabel = 'akun admin/tutor';
 

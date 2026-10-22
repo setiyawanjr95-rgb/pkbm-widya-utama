@@ -19,12 +19,15 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class GradeResource extends Resource
 {
     protected static ?string $model = Grade::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedChartBar;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Akademik';
 
     protected static ?string $modelLabel = 'nilai';
 

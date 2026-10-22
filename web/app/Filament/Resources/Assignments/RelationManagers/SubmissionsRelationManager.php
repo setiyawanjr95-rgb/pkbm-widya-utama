@@ -46,7 +46,7 @@ class SubmissionsRelationManager extends RelationManager
             ])
             ->filters([
                 TernaryFilter::make('graded')->label('Sudah dinilai')
-                    ->queries(true: fn ($q) => $q->whereNotNull('score'), false: fn ($q) => $q->whereNull('score')),
+                    ->queries(true: fn ($query) => $query->whereNotNull('score'), false: fn ($query) => $query->whereNull('score')),
             ])
             ->recordActions([
                 Action::make('download')->label('Unduh')->icon(Heroicon::OutlinedArrowDownTray)

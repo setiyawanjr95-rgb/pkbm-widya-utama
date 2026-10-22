@@ -21,12 +21,15 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class ScheduleResource extends Resource
 {
     protected static ?string $model = Schedule::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCalendarDays;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Akademik';
 
     protected static ?string $modelLabel = 'jadwal';
 

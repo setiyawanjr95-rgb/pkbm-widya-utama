@@ -20,6 +20,15 @@ Opsi (taruh di depan `bash`): `IP_CONFIG="192.168.101.7/24,gw=192.168.101.1"` un
 - Backup manual: `pct exec 102 -- /usr/local/bin/backup-pkbm` (otomatis tiap 02.30, disimpan 14 hari di /var/backups/pkbm)
 - Lihat password: `pct exec 102 -- cat /root/pkbm-web-credentials.txt`
 
+## Website publik
+`https://pkbm.netwarga.my.id` berisi Beranda, Profil, Program, Berita, Galeri, Pendaftaran online, dan Kontak.
+Semua isi diatur dari admin, grup menu **Website**: Pengaturan Website (identitas, beranda, profil, kontak, peta, WA),
+Program, Berita & Artikel, Galeri, Testimoni, Pengelola & Tutor, dan Pendaftaran Online.
+Pendaftar yang diterima bisa langsung dibuatkan akun warga belajar (tombol "Buat akun siswa").
+
+Tampilan (CSS/JS) sudah dibuild dan ikut di repo (`public/build`). Kalau mengubah file di `resources/css` atau `resources/js`,
+jalankan `npm install && npm run build` lalu commit hasilnya.
+
 ## Isi admin panel
 - Dasbor: jumlah warga belajar aktif, mapel, tugas menunggu dinilai, jadwal hari ini
 - Warga Belajar: tambah/edit akun (login pakai NISN atau username), reset password, filter paket/kelas

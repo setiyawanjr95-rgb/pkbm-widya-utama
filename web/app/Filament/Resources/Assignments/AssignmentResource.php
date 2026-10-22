@@ -5,9 +5,9 @@ namespace App\Filament\Resources\Assignments;
 use App\Filament\Resources\Assignments\Pages\CreateAssignment;
 use App\Filament\Resources\Assignments\Pages\EditAssignment;
 use App\Filament\Resources\Assignments\Pages\ListAssignments;
+use App\Filament\Resources\Assignments\RelationManagers\SubmissionsRelationManager;
 use App\Filament\Resources\Assignments\Schemas\AssignmentForm;
 use App\Filament\Resources\Assignments\Tables\AssignmentsTable;
-use App\Filament\Resources\Assignments\RelationManagers\SubmissionsRelationManager;
 use App\Models\Assignment;
 use App\Models\Submission;
 use BackedEnum;
@@ -15,12 +15,15 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class AssignmentResource extends Resource
 {
     protected static ?string $model = Assignment::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentList;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Akademik';
 
     protected static ?string $modelLabel = 'tugas';
 

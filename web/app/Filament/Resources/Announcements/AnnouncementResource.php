@@ -12,19 +12,22 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class AnnouncementResource extends Resource
 {
     protected static ?string $model = Announcement::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedMegaphone;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Akademik';
 
     protected static ?string $modelLabel = 'pengumuman';
 

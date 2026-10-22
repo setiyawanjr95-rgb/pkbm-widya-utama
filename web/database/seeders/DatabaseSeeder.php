@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             'password' => env('ADMIN_PASSWORD', 'admin12345'),
         ]);
 
+        $this->call(WebsiteSeeder::class);
+
         if (! app()->environment('local') && ! env('SEED_DEMO')) {
             return;
         }

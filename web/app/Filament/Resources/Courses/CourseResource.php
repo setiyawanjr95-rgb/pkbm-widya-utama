@@ -13,12 +13,15 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class CourseResource extends Resource
 {
     protected static ?string $model = Course::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBookOpen;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Akademik';
 
     protected static ?string $modelLabel = 'mata pelajaran';
 
