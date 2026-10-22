@@ -8,6 +8,7 @@ set -euo pipefail
 # ---------- Konfigurasi (boleh diubah) ----------
 REPO="${REPO:-setiyawanjr95-rgb/pkbm-widya-utama}"
 BRANCH="${BRANCH:-main}"
+REF="${REF:-$BRANCH}"
 CTID="${CTID:-102}"
 CT_HOSTNAME="pkbm-web"
 CORES=2
@@ -26,10 +27,10 @@ CT_PASSWORD="$(openssl rand -hex 6)"
 log() { echo -e "\n\033[1;34m==> $*\033[0m"; }
 
 if pct status "$CTID" >/dev/null 2>&1; then
-  echo "Kontainer $CTID sudah ada. Untuk update aplikasi pakai: pct exec $CTID -- update-pkbm-web"
-  exit 1
-fi
-
+  log "Kontainer $CTID sudah ada, lanjut instalasi di dalamnya"
+  CT_PASSWORD="(tidak berubah)"
+  pct status "$CTID" | grep -q running || pct start "$CTID"
+else
 log "Kontainer baru: ID $CTID, hostname $CT_HOSTNAME"
 pveam update >/dev/null
 TPL="$(pveam available --section system | awk '/debian-12-standard/ {print $2}' | sort -V | tail -1)"
@@ -45,6 +46,8 @@ pct create "$CTID" "$TPL_STORAGE:vztmpl/$TPL" \
   --description "Web admin + API PKBM Widya Utama (Laravel + Filament + MariaDB). $APP_URL"
 pct start "$CTID"
 
+fi
+
 log "Menunggu jaringan kontainer"
 for i in $(seq 1 60); do
   if pct exec "$CTID" -- bash -c "getent hosts deb.debian.org >/dev/null && ip -4 addr show eth0 | grep -q inet"; then break; fi
@@ -52,11 +55,11 @@ for i in $(seq 1 60); do
 done
 
 log "Mengambil script instalasi"
-curl -fsSL "https://raw.githubusercontent.com/$REPO/$BRANCH/deploy/ct-setup-web.sh" -o /tmp/pkbm-ct-setup-web.sh
+curl -fsSL "https://raw.githubusercontent.com/$REPO/$REF/deploy/ct-setup-web.sh" -o /tmp/pkbm-ct-setup-web.sh
 pct push "$CTID" /tmp/pkbm-ct-setup-web.sh /root/ct-setup.sh
 
 log "Install di dalam kontainer (5-10 menit)"
-pct exec "$CTID" -- env APP_URL="$APP_URL" SEED_DEMO="$SEED_DEMO" REPO="$REPO" BRANCH="$BRANCH" bash /root/ct-setup.sh </dev/null
+pct exec "$CTID" -- env APP_URL="$APP_URL" SEED_DEMO="$SEED_DEMO" REPO="$REPO" BRANCH="$BRANCH" REF="$REF" bash /root/ct-setup.sh </dev/null
 
 CT_IP="$(pct exec "$CTID" -- bash -c "ip -4 -o addr show eth0 | awk '{print \$4}' | cut -d/ -f1")"
 ADMIN_PASS="$(pct exec "$CTID" -- bash -c ". /root/pkbm-web-credentials.txt && echo \$ADMIN_PASS")"

@@ -2,10 +2,15 @@
 # Dijalankan DI DALAM kontainer pkbm-web (Debian 12). Dipanggil oleh setup-proxmox-pkbm-web.sh.
 set -euo pipefail
 export DEBIAN_FRONTEND=noninteractive
+# pct exec jalan tanpa HOME/PATH lengkap; composer butuh HOME.
+export HOME=/root COMPOSER_HOME=/root/.composer COMPOSER_ALLOW_SUPERUSER=1
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+export LC_ALL=C.UTF-8 LANG=C.UTF-8
 APP_DIR=/var/www/pkbm
 APP_URL="${APP_URL:?}"
 REPO="${REPO:?}"
 BRANCH="${BRANCH:-main}"
+REF="${REF:-$BRANCH}"   # commit/branch yang dipasang sekarang
 log() { echo -e "\n\033[1;34m==> $*\033[0m"; }
 
 log "Install paket dasar"
@@ -27,10 +32,11 @@ done
 timedatectl set-timezone Asia/Jakarta 2>/dev/null || ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
 
 log "Install Composer"
-if ! command -v composer >/dev/null; then
+if [ ! -x /usr/local/bin/composer ]; then
   curl -fsSL https://getcomposer.org/installer -o /tmp/composer-setup.php
-  php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer --quiet
+  php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
 fi
+/usr/local/bin/composer --version
 
 log "Siapkan database MariaDB"
 systemctl enable --now mariadb >/dev/null
@@ -50,7 +56,7 @@ log "Pasang aplikasi Laravel"
 mkdir -p "$APP_DIR"
 echo "REPO=$REPO" > /etc/pkbm-web.conf
 echo "BRANCH=$BRANCH" >> /etc/pkbm-web.conf
-curl -fsSL "https://codeload.github.com/$REPO/tar.gz/refs/heads/$BRANCH" | tar -xz -C "$APP_DIR" --strip-components=2 --wildcards '*/web/*'
+curl -fsSL "https://codeload.github.com/$REPO/tar.gz/$REF" | tar -xz -C "$APP_DIR" --strip-components=2 --wildcards '*/web/*'
 cd "$APP_DIR"
 if [ ! -f .env ]; then
   cp .env.example .env
@@ -60,13 +66,14 @@ if [ ! -f .env ]; then
   sed -i "s#^SESSION_DRIVER=.*#SESSION_DRIVER=database#; s#^LOG_LEVEL=.*#LOG_LEVEL=warning#" .env
   echo "ADMIN_PASSWORD=$ADMIN_PASS" >> .env
   echo "SEED_DEMO=${SEED_DEMO:-false}" >> .env
-  NEW_INSTALL=1
 fi
-export COMPOSER_ALLOW_SUPERUSER=1
-composer install --no-dev --optimize-autoloader --no-interaction --quiet
-[ -n "${NEW_INSTALL:-}" ] && php artisan key:generate --force
+/usr/local/bin/composer install --no-dev --optimize-autoloader --no-interaction
+grep -q '^APP_KEY=base64' .env || php artisan key:generate --force
 php artisan migrate --force
-[ -n "${NEW_INSTALL:-}" ] && php artisan db:seed --force
+if [ ! -f /root/.pkbm-seeded ]; then
+  php artisan db:seed --force
+  touch /root/.pkbm-seeded
+fi
 php artisan storage:link 2>/dev/null || true
 php artisan optimize
 php artisan filament:optimize
@@ -121,8 +128,9 @@ set -euo pipefail
 cd /var/www/pkbm
 /usr/local/bin/backup-pkbm
 php artisan down || true
-curl -fsSL "https://codeload.github.com/$REPO/tar.gz/refs/heads/$BRANCH" | tar -xz -C /var/www/pkbm --strip-components=2 --wildcards '*/web/*'
-COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader --no-interaction --quiet
+curl -fsSL "https://codeload.github.com/$REPO/tar.gz/$BRANCH" | tar -xz -C /var/www/pkbm --strip-components=2 --wildcards '*/web/*'
+export HOME=/root COMPOSER_HOME=/root/.composer COMPOSER_ALLOW_SUPERUSER=1
+/usr/local/bin/composer install --no-dev --optimize-autoloader --no-interaction --quiet
 php artisan migrate --force
 php artisan optimize
 php artisan filament:optimize
