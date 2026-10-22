@@ -5,6 +5,7 @@ export DEBIAN_FRONTEND=noninteractive
 # pct exec jalan tanpa HOME/PATH lengkap; composer butuh HOME.
 export HOME=/root COMPOSER_HOME=/root/.composer COMPOSER_ALLOW_SUPERUSER=1
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 export LC_ALL=C.UTF-8 LANG=C.UTF-8
 APP_DIR=/var/www/pkbm
 APP_URL="${APP_URL:?}"
@@ -130,6 +131,7 @@ cd /var/www/pkbm
 php artisan down || true
 curl -fsSL "https://codeload.github.com/$REPO/tar.gz/$BRANCH" | tar -xz -C /var/www/pkbm --strip-components=2 --wildcards '*/web/*'
 export HOME=/root COMPOSER_HOME=/root/.composer COMPOSER_ALLOW_SUPERUSER=1
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 /usr/local/bin/composer install --no-dev --optimize-autoloader --no-interaction --quiet
 php artisan migrate --force
 php artisan optimize

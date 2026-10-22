@@ -13,7 +13,7 @@ bash <(curl -fsSL https://raw.githubusercontent.com/setiyawanjr95-rgb/pkbm-widya
 
 ## Update web admin
 ```
-pct exec 102 -- update-pkbm-web
+pct exec 102 -- /usr/local/bin/update-pkbm-web
 ```
 
 ## Build ulang APK dari kode terbaru

@@ -16,8 +16,8 @@ Opsi (taruh di depan `bash`): `IP_CONFIG="192.168.101.7/24,gw=192.168.101.1"` un
 `SEED_DEMO=false` kalau tidak mau data contoh, `CTID=103` kalau ID 102 sudah dipakai.
 
 ## Perintah berguna (shell Proxmox)
-- Update aplikasi dari GitHub: `pct exec 102 -- update-pkbm-web`
-- Backup manual: `pct exec 102 -- backup-pkbm` (otomatis tiap 02.30, disimpan 14 hari di /var/backups/pkbm)
+- Update aplikasi dari GitHub: `pct exec 102 -- /usr/local/bin/update-pkbm-web`
+- Backup manual: `pct exec 102 -- /usr/local/bin/backup-pkbm` (otomatis tiap 02.30, disimpan 14 hari di /var/backups/pkbm)
 - Lihat password: `pct exec 102 -- cat /root/pkbm-web-credentials.txt`
 
 ## Isi admin panel

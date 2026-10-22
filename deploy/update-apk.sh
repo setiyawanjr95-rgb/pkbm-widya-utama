@@ -12,4 +12,4 @@ cp -r "$TMP/lib" "$APP/lib"
 cp "$TMP/pubspec.yaml" "$APP/pubspec.yaml"
 cp "$TMP/android/app/src/main/AndroidManifest.xml" "$APP/android/app/src/main/AndroidManifest.xml"
 rm -rf "$TMP"
-build-pkbm
+/usr/local/bin/build-pkbm
