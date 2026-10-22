@@ -6,20 +6,24 @@
 @theme {
     --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
 
-    /* Warna sama dengan app Android PKBM */
-    --color-brand-50: #f0f4ff;
-    --color-brand-100: #e8eeff;
-    --color-brand-200: #c9d6ff;
-    --color-brand-300: #9db4fb;
-    --color-brand-500: #2f5fe0;
-    --color-brand-600: #1546d1;
-    --color-brand-700: #0f39b3;
-    --color-brand-800: #0b2e9e;
-    --color-brand-900: #0a2172;
-    --color-gold-400: #f5c560;
-    --color-gold-500: #f2b33d;
-    --color-ink: #1b2337;
-    --color-muted: #5f6b85;
+    /* Biru gaya Traveloka */
+    --color-brand-50: #e8f5fe;
+    --color-brand-100: #d0ebfd;
+    --color-brand-200: #a2d6fb;
+    --color-brand-300: #63bbf8;
+    --color-brand-400: #2ea6f5;
+    --color-brand-500: #0194f3;
+    --color-brand-600: #0770cd;
+    --color-brand-700: #075ba8;
+    --color-brand-800: #0a4a87;
+    --color-brand-900: #0b3866;
+    --color-navy: #1c2930;
+    --color-accent-500: #ff5e1f;
+    --color-accent-600: #e84c0e;
+    --color-gold-400: #ffc940;
+    --color-gold-500: #ffb400;
+    --color-ink: #03121a;
+    --color-muted: #687176;
 }
 
 @layer base {
@@ -27,7 +31,7 @@
         scroll-behavior: smooth;
     }
     body {
-        @apply bg-white text-ink antialiased;
+        @apply bg-[#f7f9fa] text-ink antialiased;
     }
 }
 
@@ -35,13 +39,13 @@
     @apply mx-auto w-full max-w-6xl px-4 sm:px-6;
 }
 @utility btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-200;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-bold transition focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-200;
 }
 @utility btn-primary {
-    @apply btn bg-brand-600 text-white shadow-lg shadow-brand-600/25 hover:bg-brand-700;
+    @apply btn bg-brand-500 text-white hover:bg-brand-600;
 }
 @utility btn-gold {
-    @apply btn bg-gold-500 text-ink hover:bg-gold-400;
+    @apply btn bg-accent-500 text-white hover:bg-accent-600;
 }
 @utility btn-ghost {
     @apply btn border border-brand-200 bg-white text-brand-700 hover:border-brand-300 hover:bg-brand-50;
@@ -50,13 +54,13 @@
     @apply btn border border-white/30 bg-white/10 text-white backdrop-blur hover:bg-white/20;
 }
 @utility eyebrow {
-    @apply inline-flex items-center gap-2 rounded-full bg-brand-100 px-3 py-1 text-xs font-bold tracking-wide text-brand-700 uppercase;
+    @apply inline-flex items-center gap-2 rounded-md bg-brand-50 px-2.5 py-1 text-xs font-bold text-brand-600;
 }
 @utility section-title {
-    @apply mt-3 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl;
+    @apply mt-2 text-2xl font-extrabold tracking-tight text-ink sm:text-3xl;
 }
 @utility card {
-    @apply rounded-3xl border border-slate-100 bg-white shadow-sm;
+    @apply rounded-2xl border border-slate-200/70 bg-white shadow-[0_2px_8px_rgba(3,18,26,0.06)];
 }
 @utility field-label {
     @apply mb-1.5 block text-sm font-semibold text-ink;
@@ -88,4 +92,17 @@
     & blockquote {
         @apply border-l-4 border-brand-300 pl-4 italic;
     }
+}
+@utility scroller {
+    @apply -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-3 sm:mx-0 sm:px-0;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    & > * {
+        @apply shrink-0 snap-start;
+    }
+}
+@utility chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-ink transition hover:border-brand-300 hover:text-brand-600;
 }

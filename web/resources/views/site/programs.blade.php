@@ -1,8 +1,8 @@
 <x-site.layout title="Program">
     <x-site.page-header eyebrow="Program belajar" title="Program Pendidikan" subtitle="Pendidikan kesetaraan dan keterampilan untuk remaja maupun dewasa, dengan jadwal yang menyesuaikan kesibukan." />
 
-    <section class="container-site py-16 lg:py-20">
-        <div class="grid gap-8">
+    <section class="container-site relative -mt-10 pb-12">
+        <div class="grid gap-5">
             @forelse ($programs as $program)
                 <article class="card grid overflow-hidden lg:grid-cols-[22rem_1fr]">
                     <div class="relative min-h-56 bg-gradient-to-br from-brand-600 to-brand-900">
@@ -15,10 +15,10 @@
                     <div class="p-7 sm:p-9">
                         <div class="flex flex-wrap items-center gap-2">
                             @if ($program->level)
-                                <span class="rounded-full bg-gold-500/15 px-3 py-1 text-xs font-bold text-amber-700">{{ $program->level }}</span>
+                                <span class="rounded-md bg-accent-500/10 px-2.5 py-1 text-xs font-bold text-accent-600">{{ $program->level }}</span>
                             @endif
                             @if ($program->duration)
-                                <span class="rounded-full bg-brand-50 px-3 py-1 text-xs font-bold text-brand-700">{{ $program->duration }}</span>
+                                <span class="rounded-md bg-brand-50 px-2.5 py-1 text-xs font-bold text-brand-600">{{ $program->duration }}</span>
                             @endif
                         </div>
                         <h2 class="mt-4 text-2xl font-extrabold text-ink">{{ $program->name }}</h2>

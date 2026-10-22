@@ -1,7 +1,7 @@
 <x-site.layout title="Kontak">
     <x-site.page-header eyebrow="Kontak" title="Hubungi Kami" subtitle="Punya pertanyaan soal pendaftaran atau program? Kami siap membantu." />
 
-    <section class="container-site grid gap-8 py-16 lg:grid-cols-[1fr_1.3fr] lg:py-20">
+    <section class="container-site relative -mt-10 grid gap-6 pb-12 lg:grid-cols-[1fr_1.3fr]">
         <div class="space-y-4">
             @php
                 $items = [

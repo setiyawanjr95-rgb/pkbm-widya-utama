@@ -1,90 +1,105 @@
 <x-site.layout>
-    {{-- Hero --}}
-    <section class="relative overflow-hidden bg-gradient-to-b from-brand-50 to-white">
-        <div class="absolute -top-32 -right-32 size-[28rem] rounded-full bg-brand-200/50 blur-3xl"></div>
-        <div class="container-site relative grid items-center gap-12 py-14 lg:grid-cols-2 lg:py-24">
-            <div>
-                <span class="eyebrow"><x-heroicon-s-sparkles class="size-4" /> Pendaftaran warga belajar baru dibuka</span>
-                <h1 class="mt-5 text-4xl leading-[1.1] font-extrabold tracking-tight text-ink sm:text-5xl lg:text-6xl">
-                    {{ $site['hero_title'] }}
-                </h1>
-                <p class="mt-5 max-w-xl text-lg leading-relaxed text-muted">{{ $site['hero_subtitle'] }}</p>
-                <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-                    <a href="{{ route('site.register') }}" class="btn-primary !px-7 !py-3.5 text-base">Daftar Sekarang <x-heroicon-m-arrow-right class="size-5" /></a>
-                    <a href="{{ route('site.programs') }}" class="btn-ghost !px-7 !py-3.5 text-base">Lihat Program</a>
-                </div>
-                <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm font-semibold text-muted">
-                    <span class="flex items-center gap-2"><x-heroicon-s-check-badge class="size-5 text-brand-600" /> Ijazah resmi</span>
-                    <span class="flex items-center gap-2"><x-heroicon-s-check-badge class="size-5 text-brand-600" /> Jadwal fleksibel</span>
-                    <span class="flex items-center gap-2"><x-heroicon-s-check-badge class="size-5 text-brand-600" /> Semua usia</span>
-                </div>
-            </div>
-
-            <div class="relative mx-auto w-full max-w-lg">
-                @if ($site['hero_image'])
-                    <img src="{{ media_url($site['hero_image']) }}" alt="Kegiatan belajar di {{ $site['site_name'] }}" class="aspect-[4/5] w-full rounded-[2rem] object-cover shadow-2xl shadow-brand-900/20">
-                @else
-                    {{-- Ilustrasi: kartu aplikasi belajar --}}
-                    <div class="relative aspect-[4/5] w-full overflow-hidden rounded-[2rem] bg-gradient-to-br from-brand-600 to-brand-900 p-8 shadow-2xl shadow-brand-900/30">
-                        <div class="absolute -right-10 -bottom-10 size-64 rounded-full bg-white/10"></div>
-                        <div class="absolute top-10 -left-10 size-40 rounded-full bg-gold-500/30"></div>
-                        <div class="relative mx-auto mt-4 w-56 rounded-[1.75rem] border-[6px] border-ink/80 bg-white p-4 shadow-2xl">
-                            <div class="rounded-2xl bg-brand-600 p-3 text-white">
-                                <p class="text-[10px] opacity-80">Selamat datang,</p>
-                                <p class="text-sm font-bold">Warga Belajar</p>
-                                <div class="mt-2 h-1.5 rounded-full bg-white/30"><div class="h-1.5 w-2/3 rounded-full bg-gold-400"></div></div>
-                            </div>
-                            <div class="mt-3 grid grid-cols-3 gap-2 text-center text-[9px] font-semibold text-ink">
-                                @foreach (['book-open' => 'Kelas', 'clipboard-document-list' => 'Tugas', 'chart-bar' => 'Nilai'] as $icon => $label)
-                                    <div class="rounded-xl bg-brand-50 p-2"><x-dynamic-component :component="'heroicon-o-'.$icon" class="mx-auto size-5 text-brand-600" />{{ $label }}</div>
-                                @endforeach
-                            </div>
-                            @foreach (['Matematika', 'Bahasa Indonesia', 'IPA'] as $mapel)
-                                <div class="mt-2 flex items-center gap-2 rounded-xl border border-slate-100 p-2">
-                                    <span class="size-6 rounded-lg bg-brand-100"></span>
-                                    <span class="text-[10px] font-semibold">{{ $mapel }}</span>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                @endif
-                <div class="absolute -bottom-5 -left-3 flex items-center gap-3 rounded-2xl bg-white p-4 shadow-xl sm:-left-8">
-                    <span class="grid size-11 place-items-center rounded-xl bg-gold-500/20 text-gold-500"><x-heroicon-s-trophy class="size-6" /></span>
-                    <div>
-                        <p class="text-lg font-extrabold text-ink">{{ $site['stats'][2]['value'] ?? '' }}</p>
-                        <p class="text-xs text-muted">{{ $site['stats'][2]['label'] ?? 'Lulusan' }}</p>
-                    </div>
-                </div>
-            </div>
+    {{-- Hero biru + kotak daftar cepat (gaya kotak pencarian Traveloka) --}}
+    <section class="relative overflow-hidden bg-gradient-to-br from-brand-500 via-brand-600 to-brand-800 pb-28 sm:pb-32">
+        @if ($site['hero_image'])
+            <img src="{{ media_url($site['hero_image']) }}" alt="" class="absolute inset-0 size-full object-cover opacity-25 mix-blend-luminosity">
+        @endif
+        <div class="absolute -top-24 -right-16 size-96 rounded-full bg-white/10"></div>
+        <div class="absolute top-40 -left-24 size-72 rounded-full bg-brand-300/20"></div>
+        <div class="container-site relative pt-10 text-white sm:pt-14">
+            <span class="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-xs font-bold backdrop-blur">
+                <x-heroicon-s-sparkles class="size-4 text-gold-400" />
+                {{ $site['registration_open'] ? 'Pendaftaran warga belajar baru dibuka' : 'Pusat Kegiatan Belajar Masyarakat' }}
+            </span>
+            <h1 class="mt-4 max-w-3xl text-3xl leading-tight font-extrabold tracking-tight sm:text-5xl">{{ $site['hero_title'] }}</h1>
+            <p class="mt-3 max-w-2xl text-base text-brand-50 sm:text-lg">{{ $site['hero_subtitle'] }}</p>
         </div>
     </section>
 
-    {{-- Statistik --}}
-    <section class="container-site -mt-2 lg:-mt-6">
-        <div class="grid grid-cols-2 gap-4 rounded-3xl bg-brand-700 p-6 text-white shadow-xl shadow-brand-900/20 sm:p-8 lg:grid-cols-4">
-            @foreach ($site['stats'] as $stat)
-                <div class="text-center">
-                    <p class="text-3xl font-extrabold sm:text-4xl">{{ $stat['value'] }}</p>
-                    <p class="mt-1 text-sm text-brand-100">{{ $stat['label'] }}</p>
+    <section class="container-site relative -mt-20 sm:-mt-24">
+        <form action="{{ route('site.register') }}" method="GET" class="rounded-2xl bg-white p-4 shadow-xl shadow-brand-900/10 ring-1 ring-slate-200/70 sm:p-6">
+            <p class="text-sm font-bold text-ink">Mau ikut program apa?</p>
+            <div class="scroller mt-3 !pb-1">
+                @foreach ($programs->where('open_registration', true) as $program)
+                    <label class="cursor-pointer">
+                        <input type="radio" name="program" value="{{ $program->id }}" class="peer sr-only" @checked($loop->first)>
+                        <span class="flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition peer-checked:border-brand-500 peer-checked:bg-brand-50 peer-checked:text-brand-600">
+                            <x-site.program-icon :icon="$program->icon" class="size-5" /> {{ $program->name }}
+                        </span>
+                    </label>
+                @endforeach
+            </div>
+            <div class="mt-4 grid gap-3 md:grid-cols-[1fr_1fr_auto]">
+                <label class="flex items-center gap-3 rounded-xl border border-slate-200 px-4 py-2 focus-within:border-brand-500 focus-within:ring-4 focus-within:ring-brand-100">
+                    <x-heroicon-o-user class="size-5 shrink-0 text-brand-500" />
+                    <span class="flex-1">
+                        <span class="block text-[11px] font-semibold text-muted">Nama lengkap</span>
+                        <input name="name" class="w-full text-sm font-semibold outline-none placeholder:font-normal placeholder:text-slate-400" placeholder="Tulis namamu">
+                    </span>
+                </label>
+                <label class="flex items-center gap-3 rounded-xl border border-slate-200 px-4 py-2 focus-within:border-brand-500 focus-within:ring-4 focus-within:ring-brand-100">
+                    <x-heroicon-o-phone class="size-5 shrink-0 text-brand-500" />
+                    <span class="flex-1">
+                        <span class="block text-[11px] font-semibold text-muted">Nomor WhatsApp</span>
+                        <input name="phone" type="tel" inputmode="tel" class="w-full text-sm font-semibold outline-none placeholder:font-normal placeholder:text-slate-400" placeholder="08xxxxxxxxxx">
+                    </span>
+                </label>
+                <button class="btn-gold !px-8 text-base"><x-heroicon-m-magnifying-glass class="size-5" /> Daftar Sekarang</button>
+            </div>
+        </form>
+
+        {{-- Menu ikon (HP), seperti deretan produk di Traveloka --}}
+        <div class="mt-5 grid grid-cols-4 gap-y-4 lg:hidden">
+            @foreach ([['site.programs', 'academic-cap', 'Program'], ['site.register', 'pencil-square', 'Daftar'], ['site.posts', 'newspaper', 'Berita'], ['site.gallery', 'photo', 'Galeri'], ['site.profile', 'building-library', 'Profil'], ['site.contact', 'phone', 'Kontak']] as [$route, $icon, $label])
+                <a href="{{ route($route) }}" class="flex flex-col items-center gap-1.5 text-xs font-semibold text-slate-700">
+                    <span class="grid size-12 place-items-center rounded-2xl bg-white text-brand-500 shadow-sm ring-1 ring-slate-200/70"><x-dynamic-component :component="'heroicon-o-'.$icon" class="size-6" /></span>
+                    {{ $label }}
+                </a>
+            @endforeach
+            @if ($site['apk_url'])
+                <a href="{{ $site['apk_url'] }}" class="flex flex-col items-center gap-1.5 text-xs font-semibold text-slate-700">
+                    <span class="grid size-12 place-items-center rounded-2xl bg-white text-brand-500 shadow-sm ring-1 ring-slate-200/70"><x-heroicon-o-device-phone-mobile class="size-6" /></span>
+                    Unduh App
+                </a>
+            @endif
+        </div>
+
+        {{-- Baris kepercayaan --}}
+        <div class="scroller mt-5">
+            @foreach ([['check-badge', 'Ijazah resmi negara'], ['clock', 'Jadwal fleksibel'], ['device-phone-mobile', 'Belajar dari HP'], ['users', 'Untuk semua usia']] as [$icon, $label])
+                <span class="flex items-center gap-2 text-sm font-semibold text-slate-700">
+                    <span class="grid size-8 place-items-center rounded-full bg-brand-50 text-brand-500"><x-dynamic-component :component="'heroicon-s-'.$icon" class="size-5" /></span>
+                    {{ $label }}
+                </span>
+            @endforeach
+        </div>
+    </section>
+
+    {{-- Banner promo (dari Keunggulan) --}}
+    <section class="container-site pt-10">
+        <h2 class="text-xl font-extrabold text-ink sm:text-2xl">Kenapa belajar di sini?</h2>
+        <div class="scroller mt-4 lg:grid lg:grid-cols-4">
+            @php($gradients = ['from-brand-500 to-brand-700', 'from-sky-400 to-brand-600', 'from-indigo-500 to-brand-600', 'from-cyan-500 to-brand-500'])
+            @foreach ($site['features'] as $i => $feature)
+                <div class="relative flex w-72 flex-col overflow-hidden rounded-2xl bg-gradient-to-br p-5 text-white sm:w-80 lg:w-auto {{ $gradients[$i % 4] }}">
+                    <div class="absolute -right-8 -bottom-8 size-32 rounded-full bg-white/15"></div>
+                    <span class="grid size-11 place-items-center rounded-xl bg-white/20">
+                        <x-dynamic-component :component="'heroicon-o-'.(['clock', 'document-check', 'device-phone-mobile', 'user-group'][$i % 4])" class="size-6" />
+                    </span>
+                    <h3 class="mt-4 text-lg font-extrabold">{{ $feature['title'] }}</h3>
+                    <p class="mt-1 text-sm text-white/85">{{ $feature['text'] }}</p>
                 </div>
             @endforeach
         </div>
     </section>
 
-    {{-- Keunggulan --}}
-    <section class="container-site py-20">
-        <div class="mx-auto max-w-2xl text-center">
-            <span class="eyebrow">Kenapa memilih kami</span>
-            <h2 class="section-title">Belajar nyaman, tetap bisa kerja dan urus keluarga</h2>
-        </div>
-        <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            @foreach ($site['features'] as $i => $feature)
-                <div class="card p-6 transition hover:-translate-y-1 hover:shadow-lg">
-                    <span class="grid size-12 place-items-center rounded-2xl bg-brand-100 text-brand-700">
-                        <x-dynamic-component :component="'heroicon-o-'.(['clock', 'document-check', 'device-phone-mobile', 'user-group'][$i % 4])" class="size-6" />
-                    </span>
-                    <h3 class="mt-5 text-lg font-bold text-ink">{{ $feature['title'] }}</h3>
-                    <p class="mt-2 text-sm leading-relaxed text-muted">{{ $feature['text'] }}</p>
+    {{-- Statistik --}}
+    <section class="container-site pt-8">
+        <div class="card grid grid-cols-2 divide-slate-100 lg:grid-cols-4 lg:divide-x">
+            @foreach ($site['stats'] as $stat)
+                <div class="p-5 text-center">
+                    <p class="text-2xl font-extrabold text-brand-500 sm:text-3xl">{{ $stat['value'] }}</p>
+                    <p class="mt-1 text-sm text-muted">{{ $stat['label'] }}</p>
                 </div>
             @endforeach
         </div>
@@ -92,140 +107,136 @@
 
     {{-- Program --}}
     @if ($programs->isNotEmpty())
-        <section class="bg-slate-50 py-20">
-            <div class="container-site">
-                <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-                    <div>
-                        <span class="eyebrow">Program belajar</span>
-                        <h2 class="section-title">Pilih program sesuai jenjangmu</h2>
-                    </div>
-                    <a href="{{ route('site.programs') }}" class="text-sm font-bold text-brand-600 hover:text-brand-800">Semua program &rarr;</a>
+        <section class="container-site pt-12">
+            <div class="flex items-end justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-extrabold text-ink sm:text-2xl">Program belajar pilihan</h2>
+                    <p class="mt-1 text-sm text-muted">Pilih jenjang sesuai kebutuhanmu</p>
                 </div>
-                <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                    @foreach ($programs->take(6) as $program)
-                        <a href="{{ route('site.program', $program) }}" class="card group flex flex-col p-7 transition hover:-translate-y-1 hover:border-brand-200 hover:shadow-xl">
-                            <div class="flex items-center justify-between">
-                                <span class="grid size-14 place-items-center rounded-2xl bg-brand-600 text-white shadow-lg shadow-brand-600/30">
-                                    <x-site.program-icon :icon="$program->icon" class="size-7" />
-                                </span>
-                                @if ($program->level)
-                                    <span class="rounded-full bg-gold-500/15 px-3 py-1 text-xs font-bold text-amber-700">{{ $program->level }}</span>
-                                @endif
-                            </div>
-                            <h3 class="mt-6 text-xl font-extrabold text-ink group-hover:text-brand-700">{{ $program->name }}</h3>
-                            <p class="mt-2 text-sm leading-relaxed text-muted">{{ $program->summary }}</p>
-                            @if ($program->features)
-                                <ul class="mt-5 space-y-2 text-sm text-slate-700">
-                                    @foreach (array_slice($program->features, 0, 3) as $f)
-                                        <li class="flex gap-2"><x-heroicon-s-check-circle class="size-5 shrink-0 text-brand-600" /> {{ $f }}</li>
-                                    @endforeach
-                                </ul>
+                <a href="{{ route('site.programs') }}" class="shrink-0 text-sm font-bold text-brand-500 hover:text-brand-700">Lihat semua</a>
+            </div>
+            <div class="scroller mt-4">
+                @foreach ($programs as $program)
+                    <a href="{{ route('site.program', $program) }}" class="card group flex w-64 flex-col overflow-hidden transition hover:-translate-y-0.5 hover:shadow-lg sm:w-72">
+                        <div class="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-brand-400 to-brand-700">
+                            @if ($program->image)
+                                <img src="{{ media_url($program->image) }}" alt="" class="size-full object-cover transition duration-500 group-hover:scale-105" loading="lazy">
+                            @else
+                                <div class="grid size-full place-items-center text-white/85"><x-site.program-icon :icon="$program->icon" class="size-16" /></div>
                             @endif
-                            <span class="mt-auto pt-6 text-sm font-bold text-brand-600">Detail program &rarr;</span>
-                        </a>
-                    @endforeach
-                </div>
+                            @if ($program->level)
+                                <span class="absolute top-3 left-3 rounded-md bg-white/95 px-2 py-1 text-[11px] font-bold text-brand-600">{{ $program->level }}</span>
+                            @endif
+                        </div>
+                        <div class="flex flex-1 flex-col p-4">
+                            <h3 class="font-extrabold text-ink group-hover:text-brand-600">{{ $program->name }}</h3>
+                            <p class="mt-1 line-clamp-2 text-sm text-muted">{{ $program->summary }}</p>
+                            <div class="mt-auto flex items-center justify-between gap-3 pt-4">
+                                <span class="truncate text-xs text-muted">{{ $program->duration ?: 'Jadwal fleksibel' }}</span>
+                                <span class="shrink-0 text-sm font-extrabold text-accent-500">{{ $program->open_registration ? 'Daftar' : 'Info' }} &rarr;</span>
+                            </div>
+                        </div>
+                    </a>
+                @endforeach
             </div>
         </section>
     @endif
 
-    {{-- Sambutan --}}
-    <section class="container-site grid items-center gap-12 py-20 lg:grid-cols-2">
-        <div class="relative">
-            <div class="aspect-square overflow-hidden rounded-[2rem] bg-brand-100">
-                @if ($site['head_photo'])
-                    <img src="{{ media_url($site['head_photo']) }}" alt="{{ $site['head_name'] }}" class="size-full object-cover">
-                @else
-                    <div class="grid size-full place-items-center bg-gradient-to-br from-brand-100 to-brand-200 text-brand-600"><x-heroicon-o-user class="size-32" /></div>
-                @endif
-            </div>
-            <div class="absolute right-4 -bottom-6 left-4 rounded-2xl bg-white p-5 shadow-xl sm:left-auto sm:w-72">
-                <p class="font-extrabold text-ink">{{ $site['head_name'] }}</p>
-                <p class="text-sm text-muted">Kepala {{ $site['site_name'] }}</p>
-            </div>
-        </div>
-        <div>
-            <span class="eyebrow">Sambutan</span>
-            <h2 class="section-title">Pendidikan adalah hak semua orang</h2>
-            <blockquote class="mt-6 border-l-4 border-gold-500 pl-5 text-lg leading-relaxed text-slate-700 italic">"{{ $site['head_message'] }}"</blockquote>
-            <a href="{{ route('site.profile') }}" class="btn-ghost mt-8">Kenali kami lebih dekat</a>
-        </div>
-    </section>
-
-    {{-- Aplikasi --}}
+    {{-- Banner aplikasi --}}
     @if ($site['apk_url'])
-        <section class="container-site pb-4">
-            <div class="grid items-center gap-8 rounded-[2rem] bg-gradient-to-r from-brand-50 to-brand-100 p-8 sm:p-12 lg:grid-cols-[1fr_auto]">
-                <div>
-                    <span class="eyebrow bg-white">Aplikasi Android</span>
-                    <h2 class="mt-3 text-2xl font-extrabold text-ink sm:text-3xl">Belajar dari HP, kapan saja</h2>
-                    <p class="mt-3 max-w-2xl text-muted">Warga belajar bisa membuka materi, mengerjakan kuis, mengumpulkan tugas, melihat nilai dan jadwal langsung dari aplikasi {{ $site['site_name'] }}.</p>
+        <section class="container-site pt-10">
+            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-brand-700 to-brand-500 p-6 text-white sm:p-10">
+                <div class="absolute -top-20 right-10 size-64 rounded-full bg-white/10"></div>
+                <div class="relative flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+                    <div class="flex items-center gap-4">
+                        <span class="grid size-14 shrink-0 place-items-center rounded-2xl bg-white text-brand-600"><x-heroicon-s-device-phone-mobile class="size-8" /></span>
+                        <div>
+                            <h2 class="text-xl font-extrabold sm:text-2xl">Belajar dari HP, kapan saja</h2>
+                            <p class="mt-1 max-w-xl text-sm text-brand-50">Materi, kuis, tugas, nilai, dan jadwal ada di aplikasi {{ $site['site_name'] }}.</p>
+                        </div>
+                    </div>
+                    <a href="{{ $site['apk_url'] }}" class="btn shrink-0 bg-white text-brand-600 hover:bg-brand-50"><x-heroicon-o-arrow-down-tray class="size-5" /> Unduh Aplikasi</a>
                 </div>
-                <a href="{{ $site['apk_url'] }}" class="btn-primary !px-7 !py-4"><x-heroicon-o-arrow-down-tray class="size-5" /> Unduh Aplikasi</a>
             </div>
         </section>
     @endif
 
     {{-- Berita --}}
     @if ($posts->isNotEmpty())
-        <section class="container-site py-20">
-            <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+        <section class="container-site pt-12">
+            <div class="flex items-end justify-between gap-4">
                 <div>
-                    <span class="eyebrow">Kabar terbaru</span>
-                    <h2 class="section-title">Berita & Pengumuman</h2>
+                    <h2 class="text-xl font-extrabold text-ink sm:text-2xl">Kabar terbaru</h2>
+                    <p class="mt-1 text-sm text-muted">Berita, kegiatan, dan pengumuman</p>
                 </div>
-                <a href="{{ route('site.posts') }}" class="text-sm font-bold text-brand-600 hover:text-brand-800">Semua berita &rarr;</a>
+                <a href="{{ route('site.posts') }}" class="shrink-0 text-sm font-bold text-brand-500 hover:text-brand-700">Lihat semua</a>
             </div>
-            <div class="mt-10 grid gap-6 md:grid-cols-3">
+            <div class="scroller mt-4">
                 @foreach ($posts as $post)
-                    <x-site.post-card :post="$post" />
+                    <x-site.post-card :post="$post" class="w-72 sm:w-80" />
                 @endforeach
             </div>
         </section>
     @endif
 
-    {{-- Testimoni --}}
+    {{-- Sambutan --}}
+    <section class="container-site pt-12">
+        <div class="card grid items-center gap-6 overflow-hidden md:grid-cols-[16rem_1fr]">
+            <div class="aspect-[16/9] bg-brand-100 md:aspect-auto md:h-full">
+                @if ($site['head_photo'])
+                    <img src="{{ media_url($site['head_photo']) }}" alt="{{ $site['head_name'] }}" class="size-full object-cover">
+                @else
+                    <div class="grid size-full place-items-center bg-gradient-to-br from-brand-100 to-brand-200 text-brand-500"><x-heroicon-o-user class="size-24" /></div>
+                @endif
+            </div>
+            <div class="p-6 pt-0 md:p-8 md:pl-0">
+                <span class="eyebrow">Sambutan kepala PKBM</span>
+                <blockquote class="mt-4 text-lg leading-relaxed text-slate-700">"{{ $site['head_message'] }}"</blockquote>
+                <p class="mt-4 font-extrabold text-ink">{{ $site['head_name'] }}</p>
+                <p class="text-sm text-muted">Kepala {{ $site['site_name'] }}</p>
+                <a href="{{ route('site.profile') }}" class="mt-4 inline-block text-sm font-bold text-brand-500 hover:text-brand-700">Kenali kami lebih dekat &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    {{-- Testimoni gaya ulasan --}}
     @if ($testimonials->isNotEmpty())
-        <section class="bg-brand-900 py-20 text-white">
-            <div class="container-site">
-                <div class="mx-auto max-w-2xl text-center">
-                    <p class="text-sm font-bold tracking-wide text-gold-400 uppercase">Cerita alumni</p>
-                    <h2 class="mt-3 text-3xl font-extrabold sm:text-4xl">Mereka sudah membuktikannya</h2>
-                </div>
-                <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                    @foreach ($testimonials as $t)
-                        <figure class="rounded-3xl bg-white/5 p-7 ring-1 ring-white/10">
-                            <x-heroicon-s-chat-bubble-bottom-center-text class="size-8 text-gold-400" />
-                            <blockquote class="mt-4 leading-relaxed text-brand-100">"{{ $t->quote }}"</blockquote>
-                            <figcaption class="mt-6 flex items-center gap-3">
-                                @if ($t->photo)
-                                    <img src="{{ media_url($t->photo) }}" alt="" class="size-11 rounded-full object-cover">
-                                @else
-                                    <span class="grid size-11 place-items-center rounded-full bg-brand-600 font-bold">{{ mb_substr($t->name, 0, 1) }}</span>
-                                @endif
-                                <div>
-                                    <p class="font-bold">{{ $t->name }}</p>
-                                    <p class="text-sm text-brand-200">{{ $t->role }}</p>
-                                </div>
-                            </figcaption>
-                        </figure>
-                    @endforeach
-                </div>
+        <section class="container-site pt-12">
+            <h2 class="text-xl font-extrabold text-ink sm:text-2xl">Kata alumni & warga belajar</h2>
+            <div class="scroller mt-4">
+                @foreach ($testimonials as $t)
+                    <figure class="card flex w-80 flex-col p-5">
+                        <div class="flex items-center gap-3">
+                            @if ($t->photo)
+                                <img src="{{ media_url($t->photo) }}" alt="" class="size-11 rounded-full object-cover">
+                            @else
+                                <span class="grid size-11 place-items-center rounded-full bg-brand-500 font-bold text-white">{{ mb_substr($t->name, 0, 1) }}</span>
+                            @endif
+                            <div>
+                                <p class="font-bold text-ink">{{ $t->name }}</p>
+                                <p class="text-xs text-muted">{{ $t->role }}</p>
+                            </div>
+                        </div>
+                        <div class="mt-3 flex items-center gap-0.5">
+                            @for ($s = 0; $s < 5; $s++)
+                                <x-heroicon-s-star class="size-4 text-gold-500" />
+                            @endfor
+                        </div>
+                        <blockquote class="mt-3 text-sm leading-relaxed text-slate-700">"{{ $t->quote }}"</blockquote>
+                    </figure>
+                @endforeach
             </div>
         </section>
     @endif
 
     {{-- Galeri singkat --}}
     @if ($gallery->isNotEmpty())
-        <section class="container-site py-20">
-            <div class="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-                <div>
-                    <span class="eyebrow">Galeri</span>
-                    <h2 class="section-title">Suasana belajar</h2>
-                </div>
-                <a href="{{ route('site.gallery') }}" class="text-sm font-bold text-brand-600 hover:text-brand-800">Lihat galeri &rarr;</a>
+        <section class="container-site pt-12">
+            <div class="flex items-end justify-between gap-4">
+                <h2 class="text-xl font-extrabold text-ink sm:text-2xl">Suasana belajar</h2>
+                <a href="{{ route('site.gallery') }}" class="shrink-0 text-sm font-bold text-brand-500 hover:text-brand-700">Lihat galeri</a>
             </div>
-            <div class="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3">
+            <div class="mt-4 grid grid-cols-2 gap-3 md:grid-cols-3">
                 @foreach ($gallery as $item)
                     <a href="{{ route('site.gallery') }}" class="group aspect-[4/3] overflow-hidden rounded-2xl bg-brand-100">
                         <img src="{{ media_url($item->image) }}" alt="{{ $item->title }}" class="size-full object-cover transition duration-500 group-hover:scale-105" loading="lazy">

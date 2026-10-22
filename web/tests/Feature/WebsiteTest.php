@@ -104,4 +104,12 @@ class WebsiteTest extends TestCase
             $this->get($uri)->assertOk();
         }
     }
+
+    public function test_quick_register_box_prefills_form(): void
+    {
+        $this->get('/pendaftaran?name=Budi+Santoso&phone=081234567890')
+            ->assertOk()
+            ->assertSee('value="Budi Santoso"', false)
+            ->assertSee('value="081234567890"', false);
+    }
 }

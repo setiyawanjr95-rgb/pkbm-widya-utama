@@ -1,7 +1,7 @@
 <x-site.layout title="Pendaftaran Online">
     <x-site.page-header eyebrow="Pendaftaran" title="Pendaftaran Warga Belajar Baru" subtitle="Isi formulir di bawah, tim kami akan menghubungi lewat WhatsApp untuk langkah berikutnya." />
 
-    <section class="container-site grid gap-10 py-12 lg:grid-cols-[1fr_20rem] lg:py-16">
+    <section class="container-site relative -mt-10 grid gap-6 pb-12 lg:grid-cols-[1fr_20rem]">
         @if (! $site['registration_open'])
             <div class="card p-10 text-center">
                 <x-heroicon-o-lock-closed class="mx-auto size-12 text-brand-300" />
@@ -44,7 +44,7 @@
                     <div class="mt-4 grid gap-5 sm:grid-cols-2">
                         <div class="sm:col-span-2">
                             <label class="field-label" for="name">Nama lengkap <span class="text-red-500">*</span></label>
-                            <input id="name" name="name" class="field" value="{{ old('name') }}" required maxlength="255" placeholder="Sesuai KTP / akta kelahiran">
+                            <input id="name" name="name" class="field" value="{{ old('name', request('name')) }}" required maxlength="255" placeholder="Sesuai KTP / akta kelahiran">
                         </div>
                         <div>
                             <label class="field-label" for="nik">NIK</label>
@@ -85,7 +85,7 @@
                     <div class="mt-4 grid gap-5 sm:grid-cols-2">
                         <div>
                             <label class="field-label" for="phone">No. HP / WhatsApp <span class="text-red-500">*</span></label>
-                            <input id="phone" type="tel" name="phone" class="field" value="{{ old('phone') }}" required maxlength="20" placeholder="08xxxxxxxxxx">
+                            <input id="phone" type="tel" name="phone" class="field" value="{{ old('phone', request('phone')) }}" required maxlength="20" placeholder="08xxxxxxxxxx">
                         </div>
                         <div>
                             <label class="field-label" for="email">Email</label>
@@ -115,7 +115,7 @@
                 <p class="font-extrabold">Alur pendaftaran</p>
                 <ol class="mt-4 space-y-4 text-sm">
                     @foreach (['Isi formulir online ini', 'Tim kami menghubungi lewat WhatsApp', 'Datang ke PKBM membawa berkas', 'Mulai belajar & dapat akun aplikasi'] as $i => $step)
-                        <li class="flex gap-3"><span class="grid size-6 shrink-0 place-items-center rounded-full bg-gold-500 text-xs font-bold text-ink">{{ $i + 1 }}</span>{{ $step }}</li>
+                        <li class="flex gap-3"><span class="grid size-6 shrink-0 place-items-center rounded-full bg-brand-500 text-xs font-bold text-white">{{ $i + 1 }}</span>{{ $step }}</li>
                     @endforeach
                 </ol>
             </div>

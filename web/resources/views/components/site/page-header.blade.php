@@ -1,13 +1,16 @@
 @props(['title', 'subtitle' => null, 'eyebrow' => null])
-<section class="relative overflow-hidden bg-brand-800">
-    <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(circle at 20% 20%, #2f5fe0 0, transparent 45%), radial-gradient(circle at 85% 70%, #f2b33d 0, transparent 35%);"></div>
-    <div class="container-site relative py-14 text-white sm:py-20">
-        @if ($eyebrow)
-            <p class="text-sm font-bold tracking-wide text-gold-400 uppercase">{{ $eyebrow }}</p>
-        @endif
-        <h1 class="mt-2 max-w-3xl text-3xl font-extrabold tracking-tight sm:text-5xl">{{ $title }}</h1>
+<section class="relative overflow-hidden bg-gradient-to-br from-brand-500 via-brand-600 to-brand-800 pb-16">
+    <div class="absolute -top-24 -right-20 size-80 rounded-full bg-white/10"></div>
+    <div class="absolute -bottom-32 left-1/3 size-72 rounded-full bg-brand-300/20"></div>
+    <div class="container-site relative pt-8 text-white sm:pt-10">
+        <nav class="flex items-center gap-1.5 text-xs font-semibold text-brand-100">
+            <a href="{{ route('site.home') }}" class="hover:text-white">Beranda</a>
+            <x-heroicon-m-chevron-right class="size-4" />
+            <span class="text-white">{{ $eyebrow ?? $title }}</span>
+        </nav>
+        <h1 class="mt-3 max-w-3xl text-3xl font-extrabold tracking-tight sm:text-4xl">{{ $title }}</h1>
         @if ($subtitle)
-            <p class="mt-4 max-w-2xl text-base text-brand-100 sm:text-lg">{{ $subtitle }}</p>
+            <p class="mt-3 max-w-2xl text-sm text-brand-50 sm:text-base">{{ $subtitle }}</p>
         @endif
         {{ $slot }}
     </div>

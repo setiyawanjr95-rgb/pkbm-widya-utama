@@ -1,7 +1,7 @@
 <x-site.layout title="Galeri">
     <x-site.page-header eyebrow="Galeri" title="Galeri Kegiatan" subtitle="Dokumentasi kegiatan belajar, ujian, wisuda, dan kegiatan lain di PKBM." />
 
-    <section class="container-site py-12 lg:py-16">
+    <section class="container-site relative -mt-10 pb-12">
         <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
             @forelse ($items as $item)
                 <a href="{{ media_url($item->image) }}" data-lightbox data-title="{{ $item->title }}{{ $item->caption ? ' — '.$item->caption : '' }}" class="group relative aspect-square overflow-hidden rounded-2xl bg-brand-100">

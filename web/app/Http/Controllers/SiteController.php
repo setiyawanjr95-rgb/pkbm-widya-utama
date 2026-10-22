@@ -19,7 +19,7 @@ class SiteController extends Controller
     {
         return view('site.home', [
             'programs' => Program::orderBy('sort')->get(),
-            'posts' => Post::published()->limit(3)->get(),
+            'posts' => Post::published()->limit(6)->get(),
             'testimonials' => Testimonial::where('visible', true)->latest()->limit(6)->get(),
             'gallery' => GalleryItem::latest('taken_at')->latest()->limit(6)->get(),
         ]);
