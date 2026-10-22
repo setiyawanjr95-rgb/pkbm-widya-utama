@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const primary = Color(0xFF1546D1);
-  static const primaryDark = Color(0xFF0B2E9E);
-  static const primaryLight = Color(0xFFE8EEFF);
-  static const background = Color(0xFFF5F7FC);
-  static const text = Color(0xFF1B2337);
-  static const textMuted = Color(0xFF7A8499);
-  static const border = Color(0xFFE3E7F0);
+  // Biru gaya Traveloka
+  static const primary = Color(0xFF0194F3);
+  static const primaryDark = Color(0xFF0770CD);
+  static const primaryDeep = Color(0xFF0A4A87);
+  static const primaryLight = Color(0xFFE8F5FE);
+  static const accent = Color(0xFFFF5E1F);
+  static const background = Color(0xFFF7F9FA);
+  static const text = Color(0xFF03121A);
+  static const textMuted = Color(0xFF687176);
+  static const border = Color(0xFFE6EAED);
   static const success = Color(0xFF22A55B);
   static const warning = Color(0xFFF5A524);
   static const danger = Color(0xFFE5484D);
   static const purple = Color(0xFF7B5CF5);
-  static const gold = Color(0xFFF2B33D);
+  static const gold = Color(0xFFFFB400);
 }
 
 ThemeData buildTheme() {
@@ -30,6 +33,7 @@ ThemeData buildTheme() {
       backgroundColor: AppColors.primary,
       foregroundColor: Colors.white,
       elevation: 0,
+      scrolledUnderElevation: 0,
       centerTitle: false,
       titleTextStyle: TextStyle(
         color: Colors.white,
@@ -39,7 +43,8 @@ ThemeData buildTheme() {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.primary,
+        // Tombol aksi utama oranye seperti tombol "Cari" di Traveloka
+        backgroundColor: AppColors.accent,
         foregroundColor: Colors.white,
         minimumSize: const Size.fromHeight(50),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -57,7 +62,7 @@ ThemeData buildTheme() {
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: const Color(0xFFF7F8FB),
+      fillColor: Colors.white,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),

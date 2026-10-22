@@ -58,19 +58,28 @@ class AppCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: color ?? Colors.white,
-      borderRadius: BorderRadius.circular(16),
-      child: InkWell(
+    // Bayangan di luar Material agar tidak menggelapkan isi kartu
+    return DecoratedBox(
+      decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        onTap: onTap,
-        child: Container(
-          padding: padding,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: AppColors.border),
+        boxShadow: const [
+          BoxShadow(color: Color(0x0F03121A), blurRadius: 8, offset: Offset(0, 2)),
+        ],
+      ),
+      child: Material(
+        color: color ?? Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(16),
+          onTap: onTap,
+          child: Container(
+            padding: padding,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: AppColors.border.withValues(alpha: 0.7)),
+            ),
+            child: child,
           ),
-          child: child,
         ),
       ),
     );
